@@ -1,0 +1,912 @@
+=== hello ===
+
+/tmp/tmpmwl1l75u/hello.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <loop-0x8>:
+   0:	10000101 	adr	x1, 20 <msg>
+   4:	d2a12002 	mov	x2, #0x9000000             	// #150994944
+
+0000000000000008 <loop>:
+   8:	39400020 	ldrb	w0, [x1]
+   c:	b4000080 	cbz	x0, 1c <done>
+  10:	39000040 	strb	w0, [x2]
+  14:	91000421 	add	x1, x1, #0x1
+  18:	17fffffc 	b	8 <loop>
+
+000000000000001c <done>:
+  1c:	d4400000 	hlt	#0x0
+
+0000000000000020 <msg>:
+  20:	2056434e 	.word	0x2056434e
+  24:	53455547 	.word	0x53455547
+  28:	4f422054 	.word	0x4f422054
+  2c:	4f20544f 	.word	0x4f20544f
+  30:	Address 0x30 is out of bounds.
+
+
+=== movewide ===
+
+/tmp/tmpmwl1l75u/movewide.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2824680 	mov	x0, #0x1234                	// #4660
+   4:	f2aacf00 	movk	x0, #0x5678, lsl #16
+   8:	f2d35780 	movk	x0, #0x9abc, lsl #32
+   c:	f2fbde00 	movk	x0, #0xdef0, lsl #48
+  10:	92800001 	mov	x1, #0xffffffffffffffff    	// #-1
+  14:	d2e00022 	mov	x2, #0x1000000000000       	// #281474976710656
+  18:	92f00003 	mov	x3, #0x7fffffffffffffff    	// #9223372036854775807
+  1c:	d4400000 	hlt	#0x0
+
+=== addsub_imm ===
+
+/tmp/tmpmwl1l75u/addsub_imm.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2800140 	mov	x0, #0xa                   	// #10
+   4:	91001401 	add	x1, x0, #0x5
+   8:	d1000c02 	sub	x2, x0, #0x3
+   c:	91400403 	add	x3, x0, #0x1, lsl #12
+  10:	f1002804 	subs	x4, x0, #0xa
+  14:	d4400000 	hlt	#0x0
+
+=== flags_carry_add ===
+
+/tmp/tmpmwl1l75u/flags_carry_add.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	92800000 	mov	x0, #0xffffffffffffffff    	// #-1
+   4:	b1000401 	adds	x1, x0, #0x1
+   8:	d4400000 	hlt	#0x0
+
+=== flags_overflow_add ===
+
+/tmp/tmpmwl1l75u/flags_overflow_add.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	92f00000 	mov	x0, #0x7fffffffffffffff    	// #9223372036854775807
+   4:	b1000401 	adds	x1, x0, #0x1
+   8:	d4400000 	hlt	#0x0
+
+=== flags_borrow ===
+
+/tmp/tmpmwl1l75u/flags_borrow.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2800060 	mov	x0, #0x3                   	// #3
+   4:	f1001401 	subs	x1, x0, #0x5
+   8:	d4400000 	hlt	#0x0
+
+=== sp_ops ===
+
+/tmp/tmpmwl1l75u/sp_ops.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	910043ff 	add	sp, sp, #0x10
+   4:	d10083ff 	sub	sp, sp, #0x20
+   8:	910003e5 	mov	x5, sp
+   c:	d4400000 	hlt	#0x0
+
+=== cmp_sp_xzr ===
+
+/tmp/tmpmwl1l75u/cmp_sp_xzr.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	f10003ff 	cmp	sp, #0x0
+   4:	d4400000 	hlt	#0x0
+
+=== logic_shift ===
+
+/tmp/tmpmwl1l75u/logic_shift.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2801e00 	mov	x0, #0xf0                  	// #240
+   4:	d2800781 	mov	x1, #0x3c                  	// #60
+   8:	8a010002 	and	x2, x0, x1
+   c:	aa010003 	orr	x3, x0, x1
+  10:	ca010004 	eor	x4, x0, x1
+  14:	8b011005 	add	x5, x0, x1, lsl #4
+  18:	8a210006 	bic	x6, x0, x1
+  1c:	aa0103e7 	mov	x7, x1
+  20:	ea010008 	ands	x8, x0, x1
+  24:	d2f00009 	mov	x9, #0x8000000000000000    	// #-9223372036854775808
+  28:	8b89fc0a 	add	x10, x0, x9, asr #63
+  2c:	8b49fc0b 	add	x11, x0, x9, lsr #63
+  30:	aac113ec 	orr	x12, xzr, x1, ror #4
+  34:	d4400000 	hlt	#0x0
+
+=== branches_loop ===
+
+/tmp/tmpmwl1l75u/branches_loop.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <loop-0x8>:
+   0:	d28000a0 	mov	x0, #0x5                   	// #5
+   4:	d2800001 	mov	x1, #0x0                   	// #0
+
+0000000000000008 <loop>:
+   8:	8b000021 	add	x1, x1, x0
+   c:	f1000400 	subs	x0, x0, #0x1
+  10:	54ffffc1 	b.ne	8 <loop>  // b.any
+  14:	d4400000 	hlt	#0x0
+
+=== call_ret ===
+
+/tmp/tmpmwl1l75u/call_ret.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <func-0xc>:
+   0:	d2800000 	mov	x0, #0x0                   	// #0
+   4:	94000002 	bl	c <func>
+   8:	d4400000 	hlt	#0x0
+
+000000000000000c <func>:
+   c:	91001c00 	add	x0, x0, #0x7
+  10:	d65f03c0 	ret
+
+=== indirect ===
+
+/tmp/tmpmwl1l75u/indirect.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <target-0xc>:
+   0:	10000062 	adr	x2, c <target>
+   4:	d63f0040 	blr	x2
+   8:	d4400000 	hlt	#0x0
+
+000000000000000c <target>:
+   c:	d2800aa3 	mov	x3, #0x55                  	// #85
+  10:	d61f03c0 	br	x30
+
+=== cbz_cbnz ===
+
+/tmp/tmpmwl1l75u/cbz_cbnz.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <skip-0xc>:
+   0:	d2800020 	mov	x0, #0x1                   	// #1
+   4:	b5000040 	cbnz	x0, c <skip>
+   8:	d28175a1 	mov	x1, #0xbad                 	// #2989
+
+000000000000000c <skip>:
+   c:	d2800042 	mov	x2, #0x2                   	// #2
+  10:	b4000060 	cbz	x0, 1c <bad>
+  14:	d2800063 	mov	x3, #0x3                   	// #3
+  18:	d4400000 	hlt	#0x0
+
+000000000000001c <bad>:
+  1c:	d28175a3 	mov	x3, #0xbad                 	// #2989
+  20:	d4400000 	hlt	#0x0
+
+=== loadstore ===
+
+/tmp/tmpmwl1l75u/loadstore.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d297dde0 	mov	x0, #0xbeef                	// #48879
+   4:	f2bbd5a0 	movk	x0, #0xdead, lsl #16
+   8:	f9000020 	str	x0, [x1]
+   c:	f9400022 	ldr	x2, [x1]
+  10:	39400023 	ldrb	w3, [x1]
+  14:	39400424 	ldrb	w4, [x1, #1]
+  18:	39002024 	strb	w4, [x1, #8]
+  1c:	b9400425 	ldr	w5, [x1, #4]
+  20:	b9400026 	ldr	w6, [x1]
+  24:	b9001026 	str	w6, [x1, #16]
+  28:	f9400827 	ldr	x7, [x1, #16]
+  2c:	79004020 	strh	w0, [x1, #32]
+  30:	79404028 	ldrh	w8, [x1, #32]
+  34:	f9002020 	str	x0, [x1, #64]
+  38:	f9402029 	ldr	x9, [x1, #64]
+  3c:	d4400000 	hlt	#0x0
+
+=== fault_load ===
+
+/tmp/tmpmwl1l75u/fault_load.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2820001 	mov	x1, #0x1000                	// #4096
+   4:	d28000e0 	mov	x0, #0x7                   	// #7
+   8:	f9400020 	ldr	x0, [x1]
+   c:	d4400000 	hlt	#0x0
+
+=== fault_store ===
+
+/tmp/tmpmwl1l75u/fault_store.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2820001 	mov	x1, #0x1000                	// #4096
+   4:	d28000e0 	mov	x0, #0x7                   	// #7
+   8:	f9000020 	str	x0, [x1]
+   c:	d4400000 	hlt	#0x0
+
+=== fault_mmio_unimpl ===
+
+/tmp/tmpmwl1l75u/fault_mmio_unimpl.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2a12001 	mov	x1, #0x9000000             	// #150994944
+   4:	d28000e0 	mov	x0, #0x7                   	// #7
+   8:	f9408020 	ldr	x0, [x1, #256]
+   c:	d4400000 	hlt	#0x0
+
+=== br_x0 ===
+
+/tmp/tmpmwl1l75u/br_x0.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d61f0000 	br	x0
+   4:	d4400000 	hlt	#0x0
+
+=== xzr_write ===
+
+/tmp/tmpmwl1l75u/xzr_write.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d28000bf 	mov	xzr, #0x5                   	// #5
+   4:	aa1f03e0 	mov	x0, xzr
+   8:	d2800121 	mov	x1, #0x9                   	// #9
+   c:	aa1f0022 	orr	x2, x1, xzr
+  10:	d4400000 	hlt	#0x0
+
+=== hlt_imm ===
+
+/tmp/tmpmwl1l75u/hlt_imm.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d4400840 	hlt	#0x42
+
+=== brk_imm ===
+
+/tmp/tmpmwl1l75u/brk_imm.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d4202460 	brk	#0x123
+
+=== loop_forever ===
+
+/tmp/tmpmwl1l75u/loop_forever.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <loop>:
+   0:	14000000 	b	0 <loop>
+
+=== ls_modes ===
+
+/tmp/tmpmwl1l75u/ls_modes.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2822221 	mov	x1, #0x1111                	// #4369
+   4:	f2a44441 	movk	x1, #0x2222, lsl #16
+   8:	f2c66661 	movk	x1, #0x3333, lsl #32
+   c:	f2e88881 	movk	x1, #0x4444, lsl #48
+  10:	92800002 	mov	x2, #0xffffffffffffffff    	// #-1
+  14:	a9000941 	stp	x1, x2, [x10]
+  18:	a9401143 	ldp	x3, x4, [x10]
+  1c:	a9810542 	stp	x2, x1, [x10, #16]!
+  20:	a9401945 	ldp	x5, x6, [x10]
+  24:	a8c12147 	ldp	x7, x8, [x10], #16
+  28:	29000941 	stp	w1, w2, [x10]
+  2c:	2940314b 	ldp	w11, w12, [x10]
+  30:	6940394d 	ldpsw	x13, x14, [x10]
+  34:	f81f8141 	stur	x1, [x10, #-8]
+  38:	f85f814f 	ldur	x15, [x10, #-8]
+  3c:	f8008d42 	str	x2, [x10, #8]!
+  40:	f85f8550 	ldr	x16, [x10], #-8
+  44:	d2800051 	mov	x17, #0x2                   	// #2
+  48:	38316941 	strb	w1, [x10, x17]
+  4c:	38716952 	ldrb	w18, [x10, x17]
+  50:	d2800033 	mov	x19, #0x1                   	// #1
+  54:	b8337941 	str	w1, [x10, x19, lsl #2]
+  58:	b8737954 	ldr	w20, [x10, x19, lsl #2]
+  5c:	b8b3d956 	ldrsw	x22, [x10, w19, sxtw #2]
+  60:	39801157 	ldrsb	x23, [x10, #4]
+  64:	39802158 	ldrsb	x24, [x10, #8]
+  68:	39c02159 	ldrsb	w25, [x10, #8]
+  6c:	7980115a 	ldrsh	x26, [x10, #8]
+  70:	b980095b 	ldrsw	x27, [x10, #8]
+  74:	d280053d 	mov	x29, #0x29                  	// #41
+  78:	d280061e 	mov	x30, #0x30                  	// #48
+  7c:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+  80:	d280001d 	mov	x29, #0x0                   	// #0
+  84:	d280001e 	mov	x30, #0x0                   	// #0
+  88:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  8c:	d4400000 	hlt	#0x0
+
+=== ls_literal ===
+
+/tmp/tmpmwl1l75u/ls_literal.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <lit64-0x10>:
+   0:	58000081 	ldr	x1, 10 <lit64>
+   4:	180000a2 	ldr	w2, 18 <lit32>
+   8:	980000a3 	ldrsw	x3, 1c <lit32s>
+   c:	d4400000 	hlt	#0x0
+
+0000000000000010 <lit64>:
+  10:	55667788 	.word	0x55667788
+  14:	11223344 	.word	0x11223344
+
+0000000000000018 <lit32>:
+  18:	99aabbcc 	.word	0x99aabbcc
+
+000000000000001c <lit32s>:
+  1c:	80000001 	.word	0x80000001
+
+=== unsup_wfi ===
+
+/tmp/tmpmwl1l75u/unsup_wfi.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d503207f 	wfi
+
+=== unsup_wfe ===
+
+/tmp/tmpmwl1l75u/unsup_wfe.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d503205f 	wfe
+
+=== unsup_ldadd ===
+
+/tmp/tmpmwl1l75u/unsup_ldadd.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	f8200041 	ldadd	x0, x1, [x2]
+
+=== unsup_cas ===
+
+/tmp/tmpmwl1l75u/unsup_cas.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	c8a07c41 	cas	x0, x1, [x2]
+
+=== unsup_stxr_unpred ===
+
+/tmp/tmpmwl1l75u/unsup_stxr_unpred.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	c8017c41 	stxr	w1, x1, [x2]
+
+=== excl_unaligned ===
+
+/tmp/tmpmwl1l75u/excl_unaligned.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	c85f7c20 	ldxr	x0, [x1]
+
+=== ldar_unaligned ===
+
+/tmp/tmpmwl1l75u/ldar_unaligned.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	c8dffc20 	ldar	x0, [x1]
+
+=== hints ===
+
+/tmp/tmpmwl1l75u/hints.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d503201f 	nop
+   4:	d503203f 	yield
+   8:	d503209f 	sev
+   c:	d50320bf 	sevl
+  10:	d5033bbf 	dmb	ish
+  14:	d5033f9f 	dsb	sy
+  18:	d5033fdf 	isb
+  1c:	d5033f5f 	clrex
+  20:	d503233f 	paciasp
+  24:	d503245f 	bti	c
+  28:	d5032fff 	hint	#0x7f
+  2c:	d2800021 	mov	x1, #0x1                   	// #1
+  30:	d4400000 	hlt	#0x0
+
+=== prfm_nop ===
+
+/tmp/tmpmwl1l75u/prfm_nop.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <lit-0x1c>:
+   0:	f9800000 	prfm	pldl1keep, [x0]
+   4:	f9800411 	prfm	pstl1strm, [x0, #8]
+   8:	f89ff000 	prfum	pldl1keep, [x0, #-1]
+   c:	f8a26800 	prfm	pldl1keep, [x0, x2]
+  10:	d8000060 	prfm	pldl1keep, 1c <lit>
+  14:	d2800021 	mov	x1, #0x1                   	// #1
+  18:	d4400000 	hlt	#0x0
+
+000000000000001c <lit>:
+  1c:	00000000 	.word	0x00000000
+
+=== ls_extra ===
+
+/tmp/tmpmwl1l75u/ls_extra.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2822221 	mov	x1, #0x1111                	// #4369
+   4:	f2a44441 	movk	x1, #0x2222, lsl #16
+   8:	92800002 	mov	x2, #0xffffffffffffffff    	// #-1
+   c:	a8000941 	stnp	x1, x2, [x10]
+  10:	a8401143 	ldnp	x3, x4, [x10]
+  14:	28040941 	stnp	w1, w2, [x10, #32]
+  18:	28441945 	ldnp	w5, w6, [x10, #32]
+  1c:	f8030941 	sttr	x1, [x10, #48]
+  20:	f8430947 	ldtr	x7, [x10, #48]
+  24:	38038942 	sttrb	w2, [x10, #56]
+  28:	38838948 	ldtrsb	x8, [x10, #56]
+  2c:	38c38949 	ldtrsb	w9, [x10, #56]
+  30:	7803a941 	sttrh	w1, [x10, #58]
+  34:	7843a94b 	ldtrh	w11, [x10, #58]
+  38:	7883a94c 	ldtrsh	x12, [x10, #58]
+  3c:	b882494d 	ldtrsw	x13, [x10, #36]
+  40:	d4400000 	hlt	#0x0
+
+=== excl ===
+
+/tmp/tmpmwl1l75u/excl.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d2800aa1 	mov	x1, #0x55                  	// #85
+   4:	c85f7d42 	ldxr	x2, [x10]
+   8:	91000442 	add	x2, x2, #0x1
+   c:	c8037d42 	stxr	w3, x2, [x10]
+  10:	c81a7d42 	stxr	w26, x2, [x10]
+  14:	c85f7d44 	ldxr	x4, [x10]
+  18:	d5033f5f 	clrex
+  1c:	c8057d44 	stxr	w5, x4, [x10]
+  20:	c85ffd46 	ldaxr	x6, [x10]
+  24:	c807fd41 	stlxr	w7, x1, [x10]
+  28:	c8dffd48 	ldar	x8, [x10]
+  2c:	9100214b 	add	x11, x10, #0x8
+  30:	d2800ee9 	mov	x9, #0x77                  	// #119
+  34:	c89ffd69 	stlr	x9, [x11]
+  38:	c8dffd6c 	ldar	x12, [x11]
+  3c:	085f7d4d 	ldxrb	w13, [x10]
+  40:	080e7d41 	stxrb	w14, w1, [x10]
+  44:	485ffd4f 	ldaxrh	w15, [x10]
+  48:	4810fd49 	stlxrh	w16, w9, [x10]
+  4c:	08dffd51 	ldarb	w17, [x10]
+  50:	48dffd52 	ldarh	w18, [x10]
+  54:	91004153 	add	x19, x10, #0x10
+  58:	a9002661 	stp	x1, x9, [x19]
+  5c:	c87f5674 	ldxp	x20, x21, [x19]
+  60:	c8360669 	stxp	w22, x9, x1, [x19]
+  64:	a9406277 	ldp	x23, x24, [x19]
+  68:	c8197d41 	stxr	w25, x1, [x10]
+  6c:	d4400000 	hlt	#0x0
+
+=== fp_ldst ===
+
+/tmp/tmpmwl1l75u/fp_ldst.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <lit-0x74>:
+   0:	d2822221 	mov	x1, #0x1111                	// #4369
+   4:	f2a44441 	movk	x1, #0x2222, lsl #16
+   8:	f2c66661 	movk	x1, #0x3333, lsl #32
+   c:	f2e88881 	movk	x1, #0x4444, lsl #48
+  10:	9e670020 	fmov	d0, x1
+  14:	9eaf0020 	fmov	v0.d[1], x1
+  18:	3d800140 	str	q0, [x10]
+  1c:	3dc00141 	ldr	q1, [x10]
+  20:	fd000940 	str	d0, [x10, #16]
+  24:	fd400942 	ldr	d2, [x10, #16]
+  28:	bd001940 	str	s0, [x10, #24]
+  2c:	bd401943 	ldr	s3, [x10, #24]
+  30:	7d003940 	str	h0, [x10, #28]
+  34:	7d403944 	ldr	h4, [x10, #28]
+  38:	3d007940 	str	b0, [x10, #30]
+  3c:	3d407945 	ldr	b5, [x10, #30]
+  40:	ad020540 	stp	q0, q1, [x10, #64]
+  44:	ad421d46 	ldp	q6, q7, [x10, #64]
+  48:	6d860940 	stp	d0, d2, [x10, #96]!
+  4c:	6cc12548 	ldp	d8, d9, [x10], #16
+  50:	3cdd014a 	ldur	q10, [x10, #-48]
+  54:	fc5f014b 	ldur	d11, [x10, #-16]
+  58:	d280004c 	mov	x12, #0x2                   	// #2
+  5c:	bc2c7940 	str	s0, [x10, x12, lsl #2]
+  60:	bc6c794d 	ldr	s13, [x10, x12, lsl #2]
+  64:	9c00008e 	ldr	q14, 74 <lit>
+  68:	2c190140 	stnp	s0, s0, [x10, #200]
+  6c:	2c59414f 	ldnp	s15, s16, [x10, #200]
+  70:	d4400000 	hlt	#0x0
+
+0000000000000074 <lit>:
+  74:	55667788 	.word	0x55667788
+  78:	11223344 	.word	0x11223344
+  7c:	ddeeff00 	.word	0xddeeff00
+  80:	99aabbcc 	.word	0x99aabbcc
+
+=== sys_fp ===
+
+/tmp/tmpmwl1l75u/sys_fp.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d53b4401 	mrs	x1, fpcr
+   4:	d2a06002 	mov	x2, #0x3000000             	// #50331648
+   8:	b2690042 	orr	x2, x2, #0x800000
+   c:	d51b4402 	msr	fpcr, x2
+  10:	d53b4403 	mrs	x3, fpcr
+  14:	92800004 	mov	x4, #0xffffffffffffffff    	// #-1
+  18:	d51b4404 	msr	fpcr, x4
+  1c:	d53b4405 	mrs	x5, fpcr
+  20:	d51b4424 	msr	fpsr, x4
+  24:	d53b4426 	mrs	x6, fpsr
+  28:	d53b4207 	mrs	x7, nzcv
+  2c:	d2b40008 	mov	x8, #0xa0000000            	// #2684354560
+  30:	d51b4208 	msr	nzcv, x8
+  34:	d53b4209 	mrs	x9, nzcv
+  38:	d282468a 	mov	x10, #0x1234                	// #4660
+  3c:	d51bd04a 	msr	tpidr_el0, x10
+  40:	d53bd04b 	mrs	x11, tpidr_el0
+  44:	d53bd06c 	mrs	x12, tpidrro_el0
+  48:	d4400000 	hlt	#0x0
+
+=== unsup_msr_ro ===
+
+/tmp/tmpmwl1l75u/unsup_msr_ro.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d51bd060 	msr	tpidrro_el0, x0
+
+=== unsup_svc ===
+
+/tmp/tmpmwl1l75u/unsup_svc.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d4000001 	svc	#0x0
+
+=== unsup_mrs ===
+
+/tmp/tmpmwl1l75u/unsup_mrs.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	d5380000 	mrs	x0, midr_el1
+
+=== unsup_udf ===
+
+/tmp/tmpmwl1l75u/unsup_udf.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	00000000 	udf	#0
+
+=== cond_eq ===
+
+/tmp/tmpmwl1l75u/cond_eq.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000060 	b.eq	10 <.text+0x10>  // b.none
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_ne ===
+
+/tmp/tmpmwl1l75u/cond_ne.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000061 	b.ne	10 <.text+0x10>  // b.any
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_cs ===
+
+/tmp/tmpmwl1l75u/cond_cs.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000062 	b.cs	10 <.text+0x10>  // b.hs, b.nlast
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_cc ===
+
+/tmp/tmpmwl1l75u/cond_cc.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000063 	b.cc	10 <.text+0x10>  // b.lo, b.ul, b.last
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_mi ===
+
+/tmp/tmpmwl1l75u/cond_mi.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000064 	b.mi	10 <.text+0x10>  // b.first
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_pl ===
+
+/tmp/tmpmwl1l75u/cond_pl.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000065 	b.pl	10 <.text+0x10>  // b.nfrst
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_vs ===
+
+/tmp/tmpmwl1l75u/cond_vs.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000066 	b.vs	10 <.text+0x10>
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_vc ===
+
+/tmp/tmpmwl1l75u/cond_vc.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000067 	b.vc	10 <.text+0x10>
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_hi ===
+
+/tmp/tmpmwl1l75u/cond_hi.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000068 	b.hi	10 <.text+0x10>  // b.pmore
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_ls ===
+
+/tmp/tmpmwl1l75u/cond_ls.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	54000069 	b.ls	10 <.text+0x10>  // b.plast
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_ge ===
+
+/tmp/tmpmwl1l75u/cond_ge.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	5400006a 	b.ge	10 <.text+0x10>  // b.tcont
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_lt ===
+
+/tmp/tmpmwl1l75u/cond_lt.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	5400006b 	b.lt	10 <.text+0x10>  // b.tstop
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_gt ===
+
+/tmp/tmpmwl1l75u/cond_gt.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	5400006c 	b.gt	10 <.text+0x10>
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_le ===
+
+/tmp/tmpmwl1l75u/cond_le.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	5400006d 	b.le	10 <.text+0x10>
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
+
+=== cond_al ===
+
+/tmp/tmpmwl1l75u/cond_al.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	eb01001f 	cmp	x0, x1
+   4:	5400006e 	b.al	10 <.text+0x10>
+   8:	d2800002 	mov	x2, #0x0                   	// #0
+   c:	d4400000 	hlt	#0x0
+  10:	d2800022 	mov	x2, #0x1                   	// #1
+  14:	d4400000 	hlt	#0x0
